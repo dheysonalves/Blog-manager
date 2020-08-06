@@ -23,6 +23,7 @@ class StorePost extends FormRequest
      */
     public function rules()
     {
+        // With bail directive, it checks only the first error!
         return [
             'title' => 'bail|required|max:50|min:5',
             'content' => 'required|max:100'

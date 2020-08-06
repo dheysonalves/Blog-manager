@@ -38,6 +38,7 @@ class PostController extends Controller
     {
         $validatedData = $request->validated();
         // It uses mass assignment on BlogPost
+        // It already stores the user data and save it!
         $blogPost = BlogPost::create($validatedData);
 
         // $blogPost->title = $request->input('title');
