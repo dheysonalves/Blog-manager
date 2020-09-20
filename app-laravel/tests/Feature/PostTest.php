@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App\BlogPost;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class PostTest extends TestCase
@@ -22,7 +21,8 @@ class PostTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function testBlogExist() {
+    public function testBlogExist()
+    {
 
         // Arrange
         $post = new BlogPost();
@@ -38,15 +38,16 @@ class PostTest extends TestCase
         $response->assertSeeText('');
 
         $this->assertDatabaseHas('blog_posts', [
-            'title' => 'New Title'
+            'title' => 'New Title',
         ]);
     }
 
-    public function testStorePost() {
+    public function testStorePost()
+    {
 
         $params = [
             'title' => 'New Title',
-            'content' => 'Content of the blog post'
+            'content' => 'Content of the blog post',
         ];
 
         $this->post('/posts', $params)
@@ -57,10 +58,11 @@ class PostTest extends TestCase
 
     }
 
-    public function testStoreError() {
+    public function testStoreError()
+    {
         $params = [
             'title' => 'x',
-            'content' => 'x'
+            'content' => 'x',
         ];
 
         $this->post('/posts', $params)
@@ -71,5 +73,31 @@ class PostTest extends TestCase
 
         $this->assertEquals($messages['title'][0], 'The title must be at least 5 characters.');
         // $this->assertEquals($messages['content'][0], 'The content should be at least 20');
+    }
+
+    public function testUpdateValid()
+    {
+        $post = new BlogPost();
+        $post->title = 'New Title on holiday';
+        $post->content = 'Content of the blog post number five';
+        $post->save();
+
+        $this->assertDatabaseHas('blog_posts', $post->toArray());
+
+        $params = [
+            'title' => 'A new title',
+            'content' => 'A new content',
+        ];
+
+        $this->put("/posts/{$post->id}", $params)
+            ->assertStatus(302)
+            ->assertSessionHas('status');
+
+        $this->assertEquals(session('status'), 'Blog post was updated!');
+        $this->assertDatabaseMissing('blog_posts', $post->toArray());
+        $this->assertDatabaseMissing('blog_posts', [
+            'title' => 'A new title',
+        ]);
+
     }
 }
