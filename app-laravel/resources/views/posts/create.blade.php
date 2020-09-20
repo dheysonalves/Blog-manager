@@ -1,11 +1,7 @@
 @extends('layout')
 
 @section('content')
-    <form action="{{ route('posts.store') }}" method="post">
-        @csrf
-
+    <div>
         @include('posts._form');
-
-        <button type="submit">Create!</button>
-    </form>
+    </div>
 @endsection

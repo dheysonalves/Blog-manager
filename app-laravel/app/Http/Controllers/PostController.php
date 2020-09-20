@@ -41,10 +41,6 @@ class PostController extends Controller
         // It already stores the user data and save it!
         $blogPost = BlogPost::create($validatedData);
 
-        // $blogPost->title = $request->input('title');
-        // $blogPost->content = $request->input('content');
-        // $blogPost->save();
-
         $request->session()->flash('status', 'Blog post was created!');
 
         return redirect()->route('posts.show', ['post' => $blogPost->id]);
