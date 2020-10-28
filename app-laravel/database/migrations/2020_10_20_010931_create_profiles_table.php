@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddTitleContentToBlogpostsTable extends Migration
+class CreateProfilesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,12 @@ class AddTitleContentToBlogpostsTable extends Migration
      */
     public function up()
     {
-        Schema::table('blogposts', function (Blueprint $table) {
-            $table->string('title')->default('');
-            $table->string('content')->default('');
+        Schema::create('profiles', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
+
+            $table->unsignedInteger('author_id')->unique();
+            $table->foreign('author_id')->references('id')->on('authors');
         });
     }
 
@@ -26,8 +29,6 @@ class AddTitleContentToBlogpostsTable extends Migration
      */
     public function down()
     {
-        Schema::table('blogposts', function (Blueprint $table) {
-            $table->dropColumn(['title', 'content']);
-        });
+        Schema::dropIfExists('profiles');
     }
 }
