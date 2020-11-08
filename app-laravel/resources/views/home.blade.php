@@ -1,10 +1,13 @@
 @extends('layout')
 @section('content')
-    <h1>
+<div class="container py-5">
+    <img src="https://source.unsplash.com/random/1260x720" class="img-fluid" alt="Responsive image">
+    <h1 class="display-1">
         Welcome to Laravel!!
     </h1>
-
-    <p>
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cupiditate dolore beatae id aspernatur. Earum facere harum, adipisci omnis sint accusamus? Maiores quae ab labore laborum nam. Sed suscipit sunt enim.
+    <p class="lead">
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cupiditate dolore beatae id aspernatur. Earum facere
+        harum, adipisci omnis sint accusamus? Maiores quae ab labore laborum nam. Sed suscipit sunt enim.
     </p>
+</div>
 @endsection

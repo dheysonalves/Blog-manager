@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('content')
-    <div>
+    <div class="container">
         @include('posts._form');
     </div>
 @endsection
