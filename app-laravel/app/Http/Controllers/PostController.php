@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Db;
 use App\BlogPost;
 use App\Http\Requests\StorePost;
 
@@ -15,7 +16,23 @@ class PostController extends Controller
      */
     public function index()
     {
-        return view('posts.index', ['posts' => BlogPost::all()]);
+        // https://pt.stackoverflow.com/questions/75632/o-que-%C3%A9-lazy-loading-e-eager-loading
+        // DB::connection()->enableQueryLog();
+
+        // // Eager Loading
+        // $posts = BlogPost::all();
+        // // Lazing Loading
+        // $posts = BlogPost::with('comments')->get();
+
+        // foreach($posts as $post) {
+        //     foreach ($post->comments as $comment) {
+        //         echo $comment->content;
+        //     }
+        // }
+
+        // dd(DB::getQueryLog());
+
+        return view('posts.index', ['posts' => BlogPost::withCount('comments')->get()]);
     }
 
     /**

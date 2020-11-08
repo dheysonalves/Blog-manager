@@ -35,6 +35,7 @@ class PostTest extends TestCase
 
         // Assert
 
+        $response->assertSeeText('No comments yet');
         $response->assertSeeText('');
 
         $this->assertDatabaseHas('blog_posts', [
