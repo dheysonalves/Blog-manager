@@ -78,16 +78,13 @@ class PostTest extends TestCase
 
     public function testUpdateValid()
     {
-        $post = new BlogPost();
-        $post->title = 'New Title on holiday';
-        $post->content = 'Content of the blog post number five';
-        $post->save();
+        $post = $this->createDummyBlogPost();
 
         $this->assertDatabaseHas('blog_posts', $post->toArray());
 
         $params = [
-            'title' => 'A new title',
-            'content' => 'A new content',
+            'title' => 'A new named title',
+            'content' => 'Content was changed'
         ];
 
         $this->put("/posts/{$post->id}", $params)
@@ -96,9 +93,29 @@ class PostTest extends TestCase
 
         $this->assertEquals(session('status'), 'Blog post was updated!');
         $this->assertDatabaseMissing('blog_posts', $post->toArray());
-        $this->assertDatabaseMissing('blog_posts', [
-            'title' => 'A new title',
+        $this->assertDatabaseHas('blog_posts', [
+            'title' => 'A new named title'
+        ]);
+    }
+
+    private function createDummyBlogPost(): BlogPost
+    {
+        $post = new BlogPost();
+        $post->title = 'New title';
+        $post->content = 'Content of the blog post';
+        $post->save();
+
+        return $post;
+    }
+
+    public function testBlogPostWithComments() {
+        $post = $this->createDummyBlogPost();
+        factory('App\Comment', 4)->create([
+            'blog_post_id' => $post->id
         ]);
 
+        $response = $this->get('/posts');
+
+        $response->assertSeeText('4 comments');
     }
 }
