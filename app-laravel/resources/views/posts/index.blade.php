@@ -6,7 +6,7 @@
 
         @forelse($posts as $post)
 
-        <div class="col">
+        <div class="col-6">
             <p>
             <div class="row">
                 <div class="col">
@@ -53,7 +53,7 @@
         </p>
         @empty
         <p class="lead">No Blog Post Yet</p>
-        @endforelse
     </div>
+    @endforelse
 </div>
 @endsection('content')
