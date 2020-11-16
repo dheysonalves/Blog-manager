@@ -9,6 +9,13 @@ use App\Http\Requests\StorePost;
 
 class PostController extends Controller
 {
+
+    public function __construct()
+    {
+        // Protect this route controller
+        $this->middleware('auth')->only(['create', 'store', 'edit', 'update', 'destroy']);
+    }
+
     /**
      * Display a listing of the resource.
      *
