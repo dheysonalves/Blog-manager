@@ -25,6 +25,23 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('posts.create') }}">Add blog post</a>
             </li>
+            @guest
+                @if (Route::has('register'))
+                <li class="nav-item text-white">
+                    <a class="nav-link" href="{{ route('register') }}">Register</a>
+                </li>
+                @endif
+                    <li class="nav-item text-white">
+                    <a class="nav-link" href="{{ route('login') }}">Login</a>
+                    </li>
+                @else
+                    <li class="nav-item text-white">
+                    <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout ({{ Auth::user()->name }})</a>
+                    </li>
+                <form action="{{route('logout')}}" id="logout-form" method="POST" style="display:none;">
+                    @csrf;
+                </form>
+            @endguest
         </ul>
     </nav>
 

@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+// Acess the user methods
+use Illuminate\Support\Facades\Auth;
+
 class HomeController extends Controller
 {
     public function home()
     {
+        // dd(Auth::check());
         return view('home');
     }
 
