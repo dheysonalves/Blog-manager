@@ -1,5 +1,9 @@
 # Foobar
 
+<img src="./assets/kaiyu.jpg" alt="Kaiyu wallpaper "/>
+
+<span>Photo by <a href="https://unsplash.com/@luxo_jr?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Kaiyu Wu</a> on <a href="https://unsplash.com/t/architecture?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></span>
+
 Foobar is a Python library for dealing with word pluralization.
 
 ## Installation
